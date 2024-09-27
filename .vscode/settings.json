@@ -1,0 +1,65 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  // Configure glob patterns for excluding files and folders in searches. Inherits all glob patterns from the files.exclude setting.
+  "search.exclude": {
+    "packages/bootstrap/build": true,
+    "packages/bootstrap/build-lagunaro": true,
+    "temporal": true,
+    "packages/angular-client/doc/build": true,
+    "packages/angular-client/app/app.config.ts": true,
+    "api/build": true,
+    "doc/build": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "vsicons.presets.angular": false,
+
+  // Set the default
+  "editor.formatOnSave": false,
+  // Enable per-language
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true
+  },
+  "importSorter.generalConfiguration.sortOnBeforeSave": true,
+  "importSorter.sortConfiguration.customOrderingRules.rules": [
+    {
+      "type": "importMember",
+      "regex": "^$",
+      "orderLevel": 10,
+      "disableSort": true
+    },
+    {
+      "regex": "^[.$]|^(components)|^(core)|^(filters)|^(guide)|^(i18n)|^(img)|^(shared)|^(styles)|^(views)|^(@lkweb)|^(infraestructure)",
+      "orderLevel": 30
+    },
+  ],
+  "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count": 80,
+  "importSorter.importStringConfiguration.tabSize": 2,
+  "importSorter.importStringConfiguration.trailingComma": "multiLine",
+  "importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.type": "newLineEachExpressionAfterCountLimitExceptIfOnlyOne",
+  "LineCount.excludes": [
+    "**/.vscode/**",
+    "**/node_modules/**",
+    "**/__builders__/**",
+    "**/__mocks__/**",
+    "**/__test__/**",
+    "**/__tests__/**",
+    "**/*.cy.ts",
+    "**/*.test.tsx",
+    "**/*.test.ts",
+    "packages/e2e/**/*",
+    "packages/angular-client/app/shared/vendor/**/*",
+    "packages/bootstrap/build/**/*",
+  ],
+  "LineCount.includes": [
+    "packages/**/*.ts" ,
+    "packages/**/*.tsx",
+    "packages/**/*.js"
+    ],
+  "LineCount.showStatusBarItem": false
+}
