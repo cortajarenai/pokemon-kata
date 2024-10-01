@@ -30,6 +30,10 @@ export const App: React.FC = () => {
     }
   }
 
+  const handleClick = (pokemon: string) => {
+    setSelectedPokemon(pokemon)
+  }
+
   useEffect(() => {
     const onLoad = async () => {
       try {
@@ -59,7 +63,7 @@ export const App: React.FC = () => {
 
   return <>
     <ul>
-      {pokemons.map(pokemon => <li key={pokemon} onClick={() => setSelectedPokemon(pokemon)}> {pokemon} </li>)}
+      {pokemons.map(pokemon => <li key={pokemon} onClick={() => handleClick(pokemon)}> {pokemon} </li>)}
     </ul>
     {pokemonDetails && (
       <div>
