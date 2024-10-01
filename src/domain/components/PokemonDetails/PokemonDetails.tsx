@@ -1,4 +1,6 @@
-export const PokemonDetails = ({ pokemonDetails }: { pokemonDetails: any }) => {
+import { IPokemonDetails } from "../../interfaces/IPokemonDetails"
+
+export const PokemonDetails = ({ pokemonDetails }: { pokemonDetails: IPokemonDetails }) => {
   return <div className="pokemon-details">
     <h1>Name: {pokemonDetails.name}</h1>
     <p>Height: {pokemonDetails.height}</p>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { getAllPokemons, getPokemonDetails } from './domain/services';
 import { PokemonDetails } from './domain/components/PokemonDetails/PokemonDetails';
+import { IPokemonDetails } from './domain/interfaces/IPokemonDetails';
+import { IPokemon, IPokemonDetailsApiResponse } from './domain/interfaces/services';
 
 /* TODO:
 
@@ -15,13 +17,13 @@ NOTA: Desarrollar la aplicación teniendo en cuenta la mantenibilidad y crecimie
 export const App: React.FC = () => {
   const [pokemons, setPokemons] = useState<string[]>([]);
   const [selectedPokemon, setSelectedPokemon] = useState<string | undefined>();
-  const [pokemonDetails, setPokemonDetails] = useState<any>();
+  const [pokemonDetails, setPokemonDetails] = useState<IPokemonDetails>();
 
-  const mapPokemonNames = (data: any) => {
+  const mapPokemonNames = (data: IPokemon[]) => {
     return data.map((el: any) => el.name);
   }
 
-  const mapPokemonDetails = (data: any) => {
+  const mapPokemonDetails = (data: IPokemonDetailsApiResponse) => {
     return {
       name: data.name,
       height: data.height,
@@ -38,8 +40,10 @@ export const App: React.FC = () => {
   useEffect(() => {
     const onLoad = async () => {
       try {
-        const { results } = await getAllPokemons()
-        setPokemons(mapPokemonNames(results))
+        const data = await getAllPokemons()
+        if (data) {
+          setPokemons(mapPokemonNames(data.results))
+        }
       } catch (e) {
         console.error(e);
       }
@@ -52,7 +56,9 @@ export const App: React.FC = () => {
       const handlePokemonDetails = async () => {
         try {
           const data = await getPokemonDetails(selectedPokemon)
-          setPokemonDetails(mapPokemonDetails(data))
+          if (data) {
+            setPokemonDetails(mapPokemonDetails(data))
+          }
         } catch (e) {
           console.error(e)
         }
