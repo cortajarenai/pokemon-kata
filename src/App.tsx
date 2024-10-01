@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getAllPokemons, getPokemonDetails } from './domain/services';
 import { PokemonDetails } from './domain/components/PokemonDetails/PokemonDetails';
 import { IPokemonDetails } from './domain/interfaces/IPokemonDetails';
-import { IPokemon, IPokemonDetailsApiResponse } from './domain/interfaces/services';
+import { mapPokemonDetails, mapPokemonNames } from './domain/mappers/pokemonMappers';
 
 /* TODO:
 
@@ -18,20 +18,6 @@ export const App: React.FC = () => {
   const [pokemons, setPokemons] = useState<string[]>([]);
   const [selectedPokemon, setSelectedPokemon] = useState<string | undefined>();
   const [pokemonDetails, setPokemonDetails] = useState<IPokemonDetails>();
-
-  const mapPokemonNames = (data: IPokemon[]) => {
-    return data.map((el: any) => el.name);
-  }
-
-  const mapPokemonDetails = (data: IPokemonDetailsApiResponse) => {
-    return {
-      name: data.name,
-      height: data.height,
-      weight: data.weight,
-      image: data.sprites.back_default,
-      types: data.types.map((type: any) => type.type.name)
-    }
-  }
 
   const handleClick = (pokemon: string) => {
     setSelectedPokemon(pokemon)
