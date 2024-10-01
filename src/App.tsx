@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { getAllPokemons } from './domain/services/getAllPokemons';
 
 /* TODO:
 
@@ -14,17 +15,23 @@ NOTA: Desarrollar la aplicación teniendo en cuenta la mantenibilidad y crecimie
 export const App: React.FC = () => {
   const [pokemons, setPokemons] = useState<string[]>([]);
 
+  const mapPokemonNames = (data: any) => {
+    return data.map((el: any) => el.name);
+  }
+
   useEffect(() => {
-    axios.get("https://pokeapi.co/api/v2/pokemon")
-      .then(({ data }) => {
-        const mappedResult = data.results.map((el: any) => el.name)
-        setPokemons(mappedResult);
-      }).catch((e) => console.error(e))
+    const onLoad = async () => {
+      try {
+        const { results } = await getAllPokemons()
+        setPokemons(mapPokemonNames(results))
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    onLoad()
   }, [])
 
-  return <>
-    <ul>
-      {pokemons.map(pokemon => <li> {pokemon} </li>)}
-    </ul>
-  </>;
+  return <ul>
+    {pokemons.map(pokemon => <li key={pokemon}> {pokemon} </li>)}
+  </ul>
 };
