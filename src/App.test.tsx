@@ -2,30 +2,22 @@ import { render, screen } from '@testing-library/react';
 import { App } from './App';
 import axios from 'axios';
 import userEvent from '@testing-library/user-event';
-
-const expectedPokemon = "pikachu"
-const expectedPokemonDetails = {
-  name: 'pikachu',
-  height: 45,
-  weight: 60,
-  sprites: { back_default: 'https://test.com' },
-  types: [{ type: { name: 'electric' } }]
-}
+import { mockPokemon, mockPokemonDetails } from './domain/mocks/pokemons';
 
 describe("App", () => {
   it("Should render a list of pokemons", async () => {
-    jest.spyOn(axios, "get").mockResolvedValueOnce(Promise.resolve({ data: { results: [{ name: expectedPokemon }] } }))
+    jest.spyOn(axios, "get").mockResolvedValueOnce(Promise.resolve({ data: { results: [{ name: mockPokemon }] } }))
     render(<App />);
-    const pokemon = await screen.findByText(expectedPokemon)
+    const pokemon = await screen.findByText(mockPokemon)
     expect(pokemon).toBeInTheDocument()
   });
   it("Should render pokemons details after clicking on its name", async () => {
-    jest.spyOn(axios, "get").mockResolvedValueOnce(Promise.resolve({ data: { results: [{ name: expectedPokemon }] } }))
-    jest.spyOn(axios, "get").mockResolvedValueOnce(Promise.resolve({ data: expectedPokemonDetails }))
+    jest.spyOn(axios, "get").mockResolvedValueOnce(Promise.resolve({ data: { results: [{ name: mockPokemon }] } }))
+    jest.spyOn(axios, "get").mockResolvedValueOnce(Promise.resolve({ data: mockPokemonDetails }))
     render(<App />);
-    const pokemon = await screen.findByText(expectedPokemon)
+    const pokemon = await screen.findByText(mockPokemon)
     userEvent.click(pokemon)
-    expect(await screen.findByText(expectedPokemonDetails.weight)).toBeInTheDocument()
-    expect(await screen.findByText(expectedPokemonDetails.weight)).toBeInTheDocument()
+    expect(await screen.findByText(mockPokemonDetails.weight)).toBeInTheDocument()
+    expect(await screen.findByText(mockPokemonDetails.height)).toBeInTheDocument()
   })
 });
