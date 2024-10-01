@@ -17,7 +17,7 @@ describe("App", () => {
     render(<App />);
     const pokemon = await screen.findByText(mockPokemon)
     userEvent.click(pokemon)
-    expect(await screen.findByText(mockPokemonDetails.weight)).toBeInTheDocument()
-    expect(await screen.findByText(mockPokemonDetails.height)).toBeInTheDocument()
+    expect(await screen.findByText(`Weight: ${mockPokemonDetails.weight}`)).toBeInTheDocument()
+    expect(await screen.findByText(`Height: ${mockPokemonDetails.height}`)).toBeInTheDocument()
   })
 });

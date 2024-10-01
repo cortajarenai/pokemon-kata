@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getAllPokemons, getPokemonDetails } from './domain/services';
+import { PokemonDetails } from './domain/components/PokemonDetails/PokemonDetails';
 
 /* TODO:
 
@@ -61,18 +62,14 @@ export const App: React.FC = () => {
 
   }, [selectedPokemon])
 
-  return <>
+  return <div className='app'>
     <ul>
-      {pokemons.map(pokemon => <li key={pokemon} onClick={() => handleClick(pokemon)}> {pokemon} </li>)}
+      {pokemons.map(pokemon => {
+        return <li key={pokemon} >
+          <button type='button' onClick={() => handleClick(pokemon)}> {pokemon} </button>
+        </li>
+      })}
     </ul>
-    {pokemonDetails && (
-      <div>
-        <h1>{pokemonDetails.name}</h1>
-        <p>{pokemonDetails.height}</p>
-        <p>{pokemonDetails.weight}</p>
-        <img src={pokemonDetails.image} alt={pokemonDetails.name} />
-        {pokemonDetails.types.map((type: any) => <p key={type}> {type} </p>)}
-      </div>
-    )}
-  </>
+    {pokemonDetails && <PokemonDetails pokemonDetails={pokemonDetails} />}
+  </div>
 };
