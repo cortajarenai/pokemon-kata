@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { getAllPokemons } from './domain/services/getAllPokemons';
-import { BASE_URL } from './domain/constants/urls';
+import { getAllPokemons, getPokemonDetails } from './domain/services';
 
 /* TODO:
 
@@ -22,6 +20,16 @@ export const App: React.FC = () => {
     return data.map((el: any) => el.name);
   }
 
+  const mapPokemonDetails = (data: any) => {
+    return {
+      name: data.name,
+      height: data.height,
+      weight: data.weight,
+      image: data.sprites.back_default,
+      types: data.types.map((type: any) => type.type.name)
+    }
+  }
+
   useEffect(() => {
     const onLoad = async () => {
       try {
@@ -36,17 +44,15 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     if (selectedPokemon) {
-      axios.get(`${BASE_URL}/${selectedPokemon}`)
-        .then(({ data }) => {
-
-          setPokemonDetails({
-            name: data.name,
-            height: data.height,
-            weight: data.weight,
-            image: data.sprites.back_default,
-            types: data.types.map((type: any) => type.type.name)
-          })
-        }).catch(e => console.error(e))
+      const handlePokemonDetails = async () => {
+        try {
+          const data = await getPokemonDetails(selectedPokemon)
+          setPokemonDetails(mapPokemonDetails(data))
+        } catch (e) {
+          console.error(e)
+        }
+      }
+      handlePokemonDetails()
     }
 
   }, [selectedPokemon])
@@ -61,7 +67,7 @@ export const App: React.FC = () => {
         <p>{pokemonDetails.height}</p>
         <p>{pokemonDetails.weight}</p>
         <img src={pokemonDetails.image} alt={pokemonDetails.name} />
-        {pokemonDetails.types.map((type: any) => <p> {type} </p>)}
+        {pokemonDetails.types.map((type: any) => <p key={type}> {type} </p>)}
       </div>
     )}
   </>
