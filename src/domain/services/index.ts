@@ -1,0 +1,1 @@
+export { getAllPokemons } from "./getAllPokemons";
