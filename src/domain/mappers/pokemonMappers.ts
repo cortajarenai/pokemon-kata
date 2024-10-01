@@ -1,7 +1,7 @@
-import { IPokemonDetailsApiResponse, IPokemon } from "../interfaces/services";
+import { IPokemonDetailsApiResponse, IPokemon, IPokemonType } from "../interfaces/services";
 
 export const mapPokemonNames = (data: IPokemon[]) => {
-  return data.map((el: any) => el.name);
+  return data.map((el: IPokemon) => el.name);
 }
 
 export const mapPokemonDetails = (data: IPokemonDetailsApiResponse) => {
@@ -10,6 +10,6 @@ export const mapPokemonDetails = (data: IPokemonDetailsApiResponse) => {
     height: data.height,
     weight: data.weight,
     image: data.sprites.back_default,
-    types: data.types.map((type: any) => type.type.name)
+    types: data.types.map((type: IPokemonType) => type.type.name)
   }
 }

@@ -8,7 +8,7 @@ export const PokemonDetails = ({ pokemonDetails }: { pokemonDetails: IPokemonDet
     <img src={pokemonDetails.image} alt={pokemonDetails.name} />
     <div>
       Types:
-      {pokemonDetails.types.map((type: any) => <span key={type}> {type} </span>)}
+      {pokemonDetails.types.map((type: string) => <span key={type}> {type} </span>)}
     </div>
   </div>
 }

@@ -10,7 +10,7 @@ export interface IPokemonsApiResponse {
   results: IPokemon[]
 }
 
-interface IPokemonType {
+export interface IPokemonType {
   type: { name: string }
 }
 
